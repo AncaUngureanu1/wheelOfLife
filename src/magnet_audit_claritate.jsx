@@ -2,14 +2,13 @@ import { useState } from "react";
 import { RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer } from "recharts";
 
 const AREAS = [
-  { key: "cariera", label: "Carieră & job", icon: "ti-briefcase" },
-  { key: "financiar", label: "Financiar", icon: "ti-coin" },
-  { key: "sanatate", label: "Sănătate & energie", icon: "ti-heart" },
-  { key: "relatii", label: "Relații & familie", icon: "ti-users" },
-  { key: "dezvoltare", label: "Creștere personală", icon: "ti-trending-up" },
-  { key: "distractie", label: "Distracție & timp liber", icon: "ti-beach" },
-  { key: "mediu", label: "Mediu & stil de viață", icon: "ti-home" },
-  { key: "sens", label: "Scop & sens", icon: "ti-compass" },
+  { key: "cariera", label: "Carieră", icon: "ti-briefcase", description: "Ai succes, dar mai ai entuziasm pentru ceea ce faci?", scale: "1 = epuizare sau stagnare | 10 = sens și motivație" },
+  { key: "financiar", label: "Bani", icon: "ti-coin", description: "Cât de liniștit(ă) te simți când vine vorba de bani?", scale: "1 = stres constant | 10 = siguranță și control" },
+  { key: "sanatate", label: "Sănătate", icon: "ti-heart", description: "Te susține corpul tău sau funcționezi pe „încă puțin”?", scale: "1 = oboseală constantă | 10 = energie și echilibru" },
+  { key: "relatii", label: "Relații", icon: "ti-users", description: "Cât de prezent(ă) ești în relațiile importante pentru tine?", scale: "1 = distanță sau tensiune | 10 = conexiune reală" },
+  { key: "dezvoltare", label: "Dezvoltare", icon: "ti-trending-up", description: "Simți că evoluezi sau că repeți același capitol?", scale: "1 = blocaj | 10 = creștere și claritate" },
+  { key: "distractie", label: "Timp liber", icon: "ti-beach", description: "Ai spațiu real pentru tine, fără vinovăție?", scale: "1 = aproape deloc | 10 = timp care te încarcă" },
+  { key: "sens", label: "Sens", icon: "ti-compass", description: "Simți că ceea ce faci are sens pentru tine?", scale: "1 = confuzie | 10 = direcție clară" },
 ];
 
 const STEPS = ["intro", "wheel", "results", "reflect", "action", "cta"];
@@ -37,7 +36,7 @@ export default function AuditClaritate() {
   const current = STEPS[step];
   const sorted = [...AREAS].sort((a, b) => scores[a.key] - scores[b.key]);
   const lowest = sorted.slice(0, 2);
-  const avg = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) / 8);
+  const avg = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) / AREAS.length);
 
   const radarData = AREAS.map(a => ({
     subject: a.label.split(" ")[0],
@@ -78,19 +77,34 @@ export default function AuditClaritate() {
   if (current === "intro") return (
     <div style={styles.wrap}>
       <div style={{ marginBottom: 24 }}>
-        <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-text-tertiary)", marginBottom: 12 }}>Audit de claritate · 20 minute</div>
-        <h1 style={styles.h1}>Știi că ceva trebuie să se schimbe.<br />Dar nu știi exact ce — sau de unde să începi.</h1>
-        <p style={styles.body}>Ai o carieră stabilă, responsabilități, poate și o familie. Pe hârtie, totul e în regulă. Și totuși — o neliniște difuză, ca un zgomot de fundal care nu dispare.<br /><br />Acest audit îți arată <strong style={{ color: "var(--color-text-primary)", fontWeight: 500 }}>unde exact scurgi energie</strong> în viața ta chiar acum — și care e primul pas concret pe care îl poți face săptămâna asta.</p>
+        <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-text-tertiary)", marginBottom: 12 }}>Roata vietii . 10 minute</div>
+        <h1 style={styles.h1}>Viața ta merge lin sau simți că înaintezi cu frâna de mână trasă?</h1>
+        <p style={styles.body}>
+        Poți ține totul în mișcare prin disciplină și efort. Dar dacă zonele importante din viața ta nu sunt aliniate, cu cât mergi mai repede, cu atât simți mai mult că ceva nu e în regulă.
+        <br /><br />
+        Imaginează-ți viața ca pe o roată unde fiecare spiță este o parte din tine: jobul, sănătatea, relațiile sau timpul tău liber.
+        <br /><br />
+        Acest exercițiu de 10 minute te ajută să vezi clar unde se pierde echilibrul și unde ai nevoie de puțină claritate.
+        </p>
         <div style={styles.card}>
-          <div style={{ fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-            <div style={{ marginBottom: 6 }}>✓ &nbsp;Roata Vieții — scor pe 8 arii</div>
-            <div style={{ marginBottom: 6 }}>✓ &nbsp;Identificarea ariei cu cel mai mare impact</div>
-            <div style={{ marginBottom: 6 }}>✓ &nbsp;3 întrebări de claritate profundă</div>
-            <div>✓ &nbsp;Un pas concret pe care îl faci săptămâna asta</div>
-          </div>
-        </div>
-        <p style={{ ...styles.body, fontSize: 12, marginBottom: 24 }}>Nu e terapie. Nu e motivație ieftină. E o metodă structurată — ca tot ce funcționează cu adevărat.</p>
-        <button style={styles.btnPrimary} onClick={next}>Începe auditul →</button>
+        <h2 style={styles.h2}>Bună, sunt Anca.</h2>
+        <p style={{ ...styles.body, marginBottom: 0 }}>
+          Lucrez cu oameni care, deși au realizat multe, simt că „ceva” nu se mai leagă.
+        <br /><br />
+          Am creat acest exercițiu pentru că și eu am fost acolo. Și am înțeles că nu poți schimba ceva dacă nu vezi clar ce se întâmplă.
+        </p>    
+    </div>
+
+    <div style={styles.card}>
+      <div style={{ fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
+      <div style={{ marginBottom: 6 }}>✓ &nbsp;Evaluezi 7 arii importante din viața ta</div>
+      <div style={{ marginBottom: 6 }}>✓ &nbsp;Vezi unde se pierde echilibrul</div>
+      <div style={{ marginBottom: 6 }}>✓ &nbsp;Răspunzi la 3 întrebări de claritate</div>
+      <div>✓ &nbsp;Alegi un pas concret pentru săptămâna asta</div>
+    </div>
+    </div>
+        <p style={{ ...styles.body, fontSize: 12, marginBottom: 24 }}>Ia-ți 10 minute doar pentru tine. Răspunde instinctiv. Nu există răspunsuri greșite.</p>
+        <button style={styles.btnPrimary} onClick={next}>Începe exercițiul →</button>
       </div>
     </div>
   );
@@ -98,15 +112,21 @@ export default function AuditClaritate() {
   if (current === "wheel") return (
     <div style={styles.wrap}>
       <Progress />
-      <h2 style={styles.h2}>Roata Vieții — unde ești acum, cu adevărat</h2>
-      <p style={styles.body}>Acordă un scor de la 1 la 10 fiecărei arii. Nu cum crezi că ar trebui să fie — cum <em>simți</em> că este acum.</p>
+      <h2 style={styles.h2}>Roata Vieții, unde ești acum, cu adevărat</h2>
+      <p style={styles.body}>Acordă un scor de la 1 la 10 fiecărei arii. Nu cum crezi că ar trebui să fie, cum <em>simți</em> că este acum.</p>
       {AREAS.map(area => (
         <div key={area.key} style={{ ...styles.card, padding: "0.85rem 1.25rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <i className={`ti ${area.icon}`} style={{ fontSize: 16, color: scoreColor(scores[area.key]) }} aria-hidden="true" />
-              <span style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-primary)" }}>{area.label}</span>
-            </div>
+          <div>
+           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <i className={`ti ${area.icon}`} style={{ fontSize: 16, color: scoreColor(scores[area.key]) }} aria-hidden="true" />
+          <span style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-primary)" }}>{area.label}</span>
+        </div>
+
+          <p style={{ fontSize: 12, color: "var(--color-text-secondary)", lineHeight: 1.5, margin: "6px 0 0" }}>
+            {area.description}
+          </p>
+          </div>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <span style={styles.tag(scoreColor(scores[area.key]))}>{scoreLabel(scores[area.key])}</span>
               <span style={{ fontSize: 18, fontWeight: 500, color: scoreColor(scores[area.key]), minWidth: 24, textAlign: "right" }}>{scores[area.key]}</span>
@@ -116,7 +136,7 @@ export default function AuditClaritate() {
             onChange={e => setScores(s => ({ ...s, [area.key]: Number(e.target.value) }))}
             style={{ width: "100%", accentColor: scoreColor(scores[area.key]) }} />
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "var(--color-text-tertiary)", marginTop: 2 }}>
-            <span>1 — deloc mulțumit</span><span>10 — complet împlinit</span>
+            <span>{area.scale}</span>
           </div>
         </div>
       ))}
@@ -131,7 +151,7 @@ export default function AuditClaritate() {
     <div style={styles.wrap}>
       <Progress />
       <h2 style={styles.h2}>Harta ta de energie</h2>
-      <p style={styles.body}>Scorul tău mediu: <strong style={{ color: scoreColor(avg), fontWeight: 500 }}>{avg}/10</strong> — {avg <= 4 ? "există arii critice care cer atenție imediată." : avg <= 6 ? "există dezechilibre clare care îți consumă energia." : "ești la un nivel decent, dar ceva tot nu se leagă."}</p>
+      <p style={styles.body}>Scorul tău mediu: <strong style={{ color: scoreColor(avg), fontWeight: 500 }}>{avg}/10</strong> , {avg <= 4 ? "există arii critice care cer atenție imediată." : avg <= 6 ? "există dezechilibre clare care îți consumă energia." : "ești la un nivel decent, dar ceva tot nu se leagă."}</p>
 
       <div style={{ height: 280, marginBottom: 16 }}>
         <ResponsiveContainer width="100%" height="100%">
@@ -174,12 +194,12 @@ export default function AuditClaritate() {
     <div style={styles.wrap}>
       <Progress />
       <h2 style={styles.h2}>Trei întrebări de claritate profundă</h2>
-      <p style={styles.body}>Nu există răspunsuri corecte sau greșite. Scrie primul lucru care îți vine în minte — fără filtru.</p>
+      <p style={styles.body}>Nu există răspunsuri corecte sau greșite. Scrie primul lucru care îți vine în minte, fără filtru.</p>
 
       {[
-        { key: "q1", q: "Ce știi deja că trebuie să se schimbe — dar tot amâni?", hint: "Gândește-te la acel lucru la care te întorci în minte din nou și din nou..." },
+        { key: "q1", q: "Ce știi deja că trebuie să se schimbe dar tot amâni?", hint: "Gândește-te la acel lucru la care te întorci în minte din nou și din nou..." },
         { key: "q2", q: "Dacă ai ști că nu poți da greș, ce ai face altfel săptămâna asta?", hint: "Scoate frica de ecuație și ascultă ce apare..." },
-        { key: "q3", q: "Ce îți spune că nu e momentul — și cât de adevărat e asta cu adevărat?", hint: "Identifică vocea care amână și pune-o sub semnul întrebării..." },
+        { key: "q3", q: "Ce îți spune că nu e momentul și cât de adevărat e asta cu adevărat?", hint: "Identifică vocea care amână și pune-o sub semnul întrebării..." },
       ].map(({ key, q, hint }) => (
         <div key={key} style={{ marginBottom: 16 }}>
           <div style={{ fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)", marginBottom: 4 }}>{q}</div>
@@ -201,11 +221,11 @@ export default function AuditClaritate() {
     <div style={styles.wrap}>
       <Progress />
       <h2 style={styles.h2}>Claritatea fără acțiune nu schimbă nimic</h2>
-      <p style={styles.body}>Acum transformi ce ai descoperit în ceva concret. Unul singur din fiecare — nu o listă, nu un plan mare. <strong style={{ color: "var(--color-text-primary)", fontWeight: 500 }}>Unul.</strong></p>
+      <p style={styles.body}>Acum transformi ce ai descoperit în ceva concret. Unul singur din fiecare, nu o listă, nu un plan mare. <strong style={{ color: "var(--color-text-primary)", fontWeight: 500 }}>Unul.</strong></p>
 
       {[
         { key: "focus", label: "O arie de focus", hint: "Pe care arie din roată îți concentrezi energia săptămâna asta?", placeholder: `Ex: ${lowest[0]?.label || "Sănătate & energie"}` },
-        { key: "decizie", label: "O decizie", hint: "Ce decizie mică — dar reală — iei acum în legătură cu acea arie?", placeholder: "Ex: Opresc toate proiectele noi până termin X." },
+        { key: "decizie", label: "O decizie", hint: "Ce decizie mică, dar reală, iei acum în legătură cu acea arie?", placeholder: "Ex: Opresc toate proiectele noi până termin X." },
         { key: "pas", label: "Un pas concret", hint: "Ce faci în următoarele 48 de ore? Ceva specific, măsurabil, fezabil.", placeholder: "Ex: Marți la 9:00 sun persoana Y și spun că..." },
       ].map(({ key, label, hint, placeholder }) => (
         <div key={key} style={{ ...styles.card, marginBottom: 12 }}>
@@ -227,35 +247,40 @@ export default function AuditClaritate() {
     <div style={styles.wrap}>
       <div style={{ textAlign: "center", marginBottom: 24 }}>
         <div style={{ fontSize: 32, marginBottom: 12 }}>✓</div>
-        <h2 style={{ ...styles.h2, textAlign: "center" }}>Ai terminat auditul.</h2>
+        <h2 style={{ ...styles.h2, textAlign: "center" }}>Ai terminat exercițiul.</h2>
         <p style={{ ...styles.body, textAlign: "center" }}>
           Scor mediu: <strong style={{ color: scoreColor(avg), fontWeight: 500 }}>{avg}/10</strong><br />
           Aria de focus aleasă: <strong style={{ color: "var(--color-text-primary)", fontWeight: 500 }}>{action.focus || lowest[0]?.label || "—"}</strong>
         </p>
       </div>
 
-      <div style={{ ...styles.card, borderLeft: "3px solid #1D9E75", borderRadius: "0 var(--border-radius-lg) var(--border-radius-lg) 0", marginBottom: 20 }}>
-        <div style={{ fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-          Ai claritate pe hârtie. Întrebarea e: <strong style={{ color: "var(--color-text-primary)", fontWeight: 500 }}>cine te ține responsabil să o execuți?</strong><br /><br />
-          Dacă ai mai trecut prin exerciții ca acesta și tot ai rămas pe loc — nu e o problemă de motivație. E o problemă de structură externă și accountability.
-        </div>
-      </div>
+     <h2 style={styles.h2}>Ce îți arată roata ta?</h2>
+      <p style={{ ...styles.body, marginBottom: 0 }}>
+      Nu e despre perfecțiune. E despre a vedea clar unde ai nevoie de mai multă atenție.
+      <br /><br />
+      Uneori, problema nu este acolo unde pare.
+      <br />
+      Și exact asta poate face diferența.
+      </p>
 
-      <div style={{ background: "var(--color-background-secondary)", borderRadius: "var(--border-radius-lg)", padding: "1.25rem", marginBottom: 20 }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-primary)", marginBottom: 8 }}>Ce obții într-un apel de claritate de 30 min:</div>
-        {["Analizăm împreună cel mai scăzut scor din roata ta", "Identificăm ce blochează schimbarea cu adevărat", "Definim 2-3 pași concreți pe care îi faci în săptămâna asta", "Stabiliți dacă și cum ați putea lucra împreună"].map(item => (
-          <div key={item} style={{ display: "flex", gap: 8, marginBottom: 6, fontSize: 13, color: "var(--color-text-secondary)" }}>
-            <span style={{ color: "#1D9E75", flexShrink: 0 }}>→</span>{item}
-          </div>
-        ))}
+     <div style={{ background: "var(--color-background-secondary)", borderRadius: "var(--border-radius-lg)", padding: "1.25rem", marginBottom: 20 }}>
+        <h2 style={styles.h2}>Vrei să discutăm ce înseamnă rezultatul tău?</h2>
+        <p style={{ ...styles.body, marginBottom: 0 }}>
+        Dacă simți că ai nevoie de claritate, putem avea un apel scurt în care ne uităm împreună la rezultate și la următorul pas potrivit pentru tine.
+      </p>
       </div>
 
       <div style={{ textAlign: "center" }}>
-        <button style={{ ...styles.btnPrimary, padding: "14px 36px", fontSize: 15 }}
-          onClick={() => alert("Inserează aici link-ul tău de programare (Calendly / Cal.com)")}>
-          Rezervă apelul de claritate — gratuit
-        </button>
-        <p style={{ fontSize: 12, color: "var(--color-text-tertiary)", marginTop: 10 }}>30 minute · Online · Fără nicio obligație</p>
+         <a href="https://calendar.app.google/8QvbRGCF7fFZeVmz7"
+           target="_blank"
+           rel="noopener noreferrer"
+           style={{ textDecoration: "none" }}
+           >
+       <button style={{ ...styles.btnPrimary, padding: "14px 36px", fontSize: 15 }}>
+        Rezervă apelul de claritate gratuit
+      </button>
+         </a>
+        <p style={{ fontSize: 12, color: "var(--color-text-tertiary)", marginTop: 10 }}>30 minute · Online · Fără presiune</p>
       </div>
 
       <div style={{ borderTop: "0.5px solid var(--color-border-tertiary)", marginTop: 24, paddingTop: 16 }}>
