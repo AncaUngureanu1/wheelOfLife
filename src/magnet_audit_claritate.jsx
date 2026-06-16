@@ -5,7 +5,7 @@ import ancaPortret from "./assets/anca-portret.jpg";
 const AREAS = [
   { key: "cariera", label: "Carieră", icon: "ti-briefcase", description: "Ai succes, dar mai ai entuziasm pentru ceea ce faci?", scale: "1 = epuizare sau stagnare | 10 = sens și motivație" },
   { key: "financiar", label: "Bani", icon: "ti-coin", description: "Cât de liniștit(ă) te simți când vine vorba de bani?", scale: "1 = stres constant | 10 = siguranță și control" },
-  { key: "sanatate", label: "Sănătate", icon: "ti-heart", description: "Te susține corpul tău sau funcționezi pe „încă puțin"?", scale: "1 = oboseală constantă | 10 = energie și echilibru" },
+  { key: "sanatate", label: "Sănătate", icon: "ti-heart", description: "Te susține corpul tău sau funcționezi pe 'încă puțin'?", scale: "1 = oboseală constantă | 10 = energie și echilibru" },
   { key: "relatii", label: "Relații", icon: "ti-users", description: "Cât de prezent(ă) ești în relațiile importante pentru tine?", scale: "1 = distanță sau tensiune | 10 = conexiune reală" },
   { key: "dezvoltare", label: "Dezvoltare", icon: "ti-trending-up", description: "Simți că evoluezi sau că repeți același capitol?", scale: "1 = blocaj | 10 = creștere și claritate" },
   { key: "distractie", label: "Timp liber", icon: "ti-beach", description: "Ai spațiu real pentru tine, fără vinovăție?", scale: "1 = aproape deloc | 10 = timp care te încarcă" },
